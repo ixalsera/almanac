@@ -2,9 +2,10 @@
 import { ref, toRefs, watchEffect } from 'vue'
 import { supabase } from '@/lib/supabase/client'
 import Avatar from 'primevue/avatar'
+import FileUpload from 'primevue/fileupload'
 
-const prop = defineProps(['path', 'size'])
-const { path, size } = toRefs(prop)
+const prop = defineProps(['path'])
+const { path } = toRefs(prop)
 
 const emit = defineEmits(['upload', 'update:path'])
 const uploading = ref(false)
@@ -13,7 +14,9 @@ const files = ref()
 
 const downloadImage = async () => {
   try {
-    const { data, error } = await supabase.storage.from('avatars').download(path.value)
+    const { data, error } = await supabase.storage
+      .from('avatars')
+      .download(path.value)
     if (error) throw error
     src.value = URL.createObjectURL(data)
   } catch (error) {
@@ -21,8 +24,8 @@ const downloadImage = async () => {
   }
 }
 
-const uploadAvatar = async (evt) => {
-  files.value = evt.target.files
+const uploadAvatar = async evt => {
+  files.value = evt.files
   try {
     uploading.value = true
     if (!files.value || files.value.length === 0) {
@@ -33,7 +36,9 @@ const uploadAvatar = async (evt) => {
     const fileExt = file.name.split('.').pop()
     const filePath = `${Math.random()}.${fileExt}`
 
-    const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
+    const { error: uploadError } = await supabase.storage
+      .from('avatars')
+      .upload(filePath, file)
 
     if (uploadError) throw uploadError
     emit('update:path', filePath)
@@ -54,19 +59,14 @@ watchEffect(() => {
   <div>
     <Avatar v-if="src" :image="src" size="xlarge" shape="circle" />
     <Avatar v-else icon="pi pi-user" size="xlarge" shape="circle" />
-
-    <div :style="{ width: size + 'em' }">
-      <label class="button primary block" for="single">
-        {{ uploading ? 'Uploading ...' : 'Upload' }}
-      </label>
-      <input
-        style="visibility: hidden; position: absolute"
-        type="file"
-        id="single"
-        accept="image/*"
-        @change="uploadAvatar"
-        :disabled="uploading"
-      />
-    </div>
+    <FileUpload
+      mode="basic"
+      @select="uploadAvatar"
+      custom-upload
+      auto
+      accept="image/*"
+      :choose-label="uploading ? 'Uploading ...' : 'Upload'"
+      :disabled="uploading"
+    />
   </div>
 </template>
