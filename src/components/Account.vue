@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref, toRefs } from 'vue'
 import { supabase } from '@/lib/supabase/client'
+import Button from 'primevue/button'
+import FloatLabel from 'primevue/floatlabel'
+import InputText from 'primevue/inputtext'
 import Avatar from '@/components/Avatar.vue'
 
 const props = defineProps(['session'])
@@ -79,30 +82,25 @@ async function signOut() {
 <template>
   <form class="form-widget" @submit.prevent="updateProfile">
     <Avatar v-model:path="avatar_url" @upload="updateProfile" size="10" />
-    <div>
+    <FloatLabel>
       <label for="email">Email</label>
-      <input id="email" type="text" :value="session.user.email" disabled />
-    </div>
-    <div>
+      <InputText id="email" v-model="session.user.email" disabled />
+    </FloatLabel>
+    <FloatLabel>
       <label for="username">Name</label>
-      <input id="username" type="text" v-model="username" />
-    </div>
-    <div>
+      <InputText id="username" v-model="username" />
+    </FloatLabel>
+    <FloatLabel>
       <label for="website">Website</label>
-      <input id="website" type="url" v-model="website" />
-    </div>
+      <InputText id="website" v-model="website" />
+    </FloatLabel>
 
-    <div>
-      <input
-        type="submit"
-        class="button primary block"
-        :value="loading ? 'Loading ...' : 'Update'"
-        :disabled="loading"
-      />
-    </div>
+    <Button
+      :label="loading ? 'Loading ...' : 'Update'"
+      :disabled="loading"
+      @click="updateProfile"
+    />
 
-    <div>
-      <button class="button block" @click="signOut" :disabled="loading">Sign Out</button>
-    </div>
+    <Button @click="signOut" :disabled="loading" label="Sign Out" />
   </form>
 </template>

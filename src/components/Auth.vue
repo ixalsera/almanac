@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { supabase } from '@/lib/supabase/client'
+import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
 
 const loading = ref(false)
 const email = ref('')
@@ -28,17 +30,8 @@ const handleLogin = async () => {
     <div class="col-6 form-widget">
       <h1 class="header">Supabase + Vue 3</h1>
       <p class="description">Sign in via magic link with your email below</p>
-      <div>
-        <input class="inputField" required type="email" placeholder="Your email" v-model="email" />
-      </div>
-      <div>
-        <input
-          type="submit"
-          class="button block"
-          :value="loading ? 'Loading' : 'Send magic link'"
-          :disabled="loading"
-        />
-      </div>
+      <InputText v-model="email" required type="email" placeholder="Your email" />
+      <Button :label="loading ? 'Loading' : 'Send magic link'" :disabled="loading" @click="handleLogin" />
     </div>
   </form>
 </template>

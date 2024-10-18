@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { supabase } from '@/lib/supabase/client'
 import Account from '@/components/Account.vue'
 import Auth from '@/components/Auth.vue'
-import { supabase } from '@/lib/supabaseClient'
 
 const session = ref()
 

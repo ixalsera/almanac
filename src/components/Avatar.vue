@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, toRefs, watchEffect } from 'vue'
 import { supabase } from '@/lib/supabase/client'
+import Avatar from 'primevue/avatar'
 
 const prop = defineProps(['path', 'size'])
 const { path, size } = toRefs(prop)
@@ -51,14 +52,8 @@ watchEffect(() => {
 
 <template>
   <div>
-    <img
-      v-if="src"
-      :src="src"
-      alt="Avatar"
-      class="avatar image"
-      :style="{ height: size + 'em', width: size + 'em' }"
-    />
-    <div v-else class="avatar no-image" :style="{ height: size + 'em', width: size + 'em' }" />
+    <Avatar v-if="src" :image="src" size="xlarge" shape="circle" />
+    <Avatar v-else icon="pi pi-user" size="xlarge" shape="circle" />
 
     <div :style="{ width: size + 'em' }">
       <label class="button primary block" for="single">
