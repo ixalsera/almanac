@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient'
 import { onMounted, ref, toRefs } from 'vue'
+import { supabase } from '@/lib/supabase/client'
 import Avatar from '@/components/Avatar.vue'
 
 const props = defineProps(['session'])
