@@ -1,8 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { ProductService } from '@/service/ProductService';
-import { FilterMatchMode } from '@primevue/core/api';
+import { FilterMatchMode } from '@primevue/core';
 import { useToast } from 'primevue/usetoast';
 import { onMounted, ref } from 'vue';
+import Toolbar from 'primevue/toolbar'
+import Button from 'primevue/button'
+import DataTable from 'primevue/datatable'
+import Dialog from 'primevue/dialog'
+import InputText from 'primevue/inputtext'
+import Textarea from 'primevue/textarea'
+import Select from 'primevue/select'
+import RadioButton from 'primevue/radiobutton'
+import InputNumber from 'primevue/inputnumber'
 
 onMounted(() => {
     ProductService.getProducts().then((data) => (products.value = data));

@@ -16,8 +16,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@primevue/core": "^4.1.1",
     "@primevue/themes": "^4.1.1",
     "@supabase/supabase-js": "^2.45.5",
+    "chart.js": "^4.4.5",
     "pinia": "^2.2.4",
     "primeicons": "^7.0.0",
     "primevue": "^4.1.1",

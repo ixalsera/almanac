@@ -1,7 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { useLayout } from '@/layout/composables/layout';
 import { ProductService } from '@/service/ProductService';
 import { onMounted, ref, watch } from 'vue';
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Button from 'primevue/button'
+import Menu from 'primevue/menu'
+import Chart from 'primevue/chart'
 
 const { getPrimary, getSurface, isDarkTheme } = useLayout();
 

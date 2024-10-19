@@ -7,6 +7,8 @@ import router from './router'
 import PrimeVue from 'primevue/config'
 import Aura from '@primevue/themes/aura'
 import ToastService from 'primevue/toastservice';
+import StyleClass from 'primevue/styleclass';
+
 
 import '@/assets/styles.css';
 import '@/assets/tailwind.css';
@@ -26,5 +28,7 @@ app.use(PrimeVue, {
   },
 })
 app.use(ToastService)
+
+app.directive('styleclass', StyleClass);
 
 app.mount('#app')
