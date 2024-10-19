@@ -9,16 +9,11 @@ const model = ref<MenuItem[]>([
     items: [
       {
         label: 'Dashboard',
-        icon: 'pi pi-fw pi-home',
+        icon: 'pi pi-fw pi-objects-column',
         to: { name: 'dashboard' },
       },
       {
-        label: 'Profile',
-        icon: 'pi pi-fw pi-user',
-        to: { name: 'profile' },
-      },
-      {
-        label: 'Campaigns',
+        label: 'All Campaigns',
         icon: 'pi pi-fw pi-globe',
         to: { name: 'campaigns' },
       },

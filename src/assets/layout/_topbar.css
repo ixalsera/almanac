@@ -31,7 +31,12 @@
         }
 
         &:focus-visible {
-            @include focused();
+            outline: var(--focus-ring-color) var(--focus-ring-style) var(--focus-ring-width);
+            outline-offset: var(--focus-ring-offset);
+    box-shadow: var(--focus-ring-shadow);
+    transition:
+        box-shadow var(--transition-duration),
+        outline-color var(--transition-duration);
         }
     }
 
@@ -52,7 +57,12 @@
         }
 
         &:focus-visible {
-            @include focused();
+            outline: var(--focus-ring-color) var(--focus-ring-style) var(--focus-ring-width);
+            outline-offset: var(--focus-ring-offset);
+    box-shadow: var(--focus-ring-shadow);
+    transition:
+        box-shadow var(--transition-duration),
+        outline-color var(--transition-duration);
         }
 
         i {
@@ -160,7 +170,7 @@
 .config-panel {
     .config-panel-label {
         font-size: 0.875rem;
-        color: var(--text-secondary-color);
+        color: var(--text-color-secondary);
         font-weight: 600;
         line-height: 1;
     }
@@ -180,9 +190,7 @@
                 border-radius: 50%;
                 padding: 0;
                 cursor: pointer;
-                outline-color: transparent;
-                outline-width: 2px;
-                outline-style: solid;
+                outline: transparent solid 2px;
                 outline-offset: 1px;
 
                 &.active-color {
