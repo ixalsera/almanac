@@ -6,6 +6,11 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      external: ['@primevue/core/api']
+    }
+  },
   plugins: [
     vue(),
     vueDevTools(),
