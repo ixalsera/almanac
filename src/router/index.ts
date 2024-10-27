@@ -6,10 +6,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: () => import('@/views/Home.vue'),
+    },
+    {
+      path: '/',
       component: AppLayout,
+      meta: {
+        auth: true
+      },
       children: [
         {
-          path: '',
+          path: 'dashboard',
           name: 'dashboard',
           component: () => import('@/views/Dashboard.vue'),
         },
@@ -24,67 +32,56 @@ const router = createRouter({
             {
               path: '',
               name: 'campaignDash',
-              component: () => import('@/views/pages/campaign/CampaignDashboard.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignDashboard.vue'),
             },
             {
               path: 'events',
               name: 'campaignEvents',
-              component: () => import('@/views/pages/campaign/CampaignEvents.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignEvents.vue'),
             },
             {
               path: 'relationships',
               name: 'campaignRelationships',
-              component: () => import('@/views/pages/campaign/CampaignRelationships.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignRelationships.vue'),
             },
             {
               path: 'loot',
               name: 'campaignLoot',
-              component: () => import('@/views/pages/campaign/CampaignLoot.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignLoot.vue'),
             },
             {
               path: 'notes',
               name: 'campaignNotes',
-              component: () => import('@/views/pages/campaign/CampaignNotes.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignNotes.vue'),
             },
           ],
         },
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('@/views/Profile.vue')
+          component: () => import('@/views/Profile.vue'),
         },
         {
           path: 'characters',
           name: 'characters',
-          component: () => import('@/views/Characters.vue')
-        }
+          component: () => import('@/views/Characters.vue'),
+        },
       ],
     },
     {
-      path: '/landing',
-      name: 'landing',
-      component: () => import('@/views/pages/Landing.vue'),
-    },
-    {
-      path: '/pages/notfound',
-      name: 'notfound',
-      component: () => import('@/views/pages/NotFound.vue'),
-    },
-
-    {
-      path: '/auth/login',
+      path: '/login',
       name: 'login',
       component: () => import('@/views/pages/auth/Login.vue'),
     },
     {
-      path: '/auth/access',
-      name: 'accessDenied',
-      component: () => import('@/views/pages/auth/Access.vue'),
-    },
-    {
-      path: '/auth/error',
-      name: 'error',
-      component: () => import('@/views/pages/auth/Error.vue'),
+      path: '/logout',
+      name: 'logout',
+      component: () => import('@/views/pages/auth/Logout.vue'),
     },
   ],
 })

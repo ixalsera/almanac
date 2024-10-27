@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { supabase } from '@/lib/supabase/client'
+import DynamicDialog from 'primevue/dynamicdialog';
+import Toast from 'primevue/toast'
 
 const session = ref()
 
@@ -17,4 +19,6 @@ onMounted(() => {
 
 <template>
   <router-view />
+  <DynamicDialog />
+  <Toast />
 </template>
