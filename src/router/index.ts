@@ -12,6 +12,9 @@ const router = createRouter({
     {
       path: '/',
       component: AppLayout,
+      meta: {
+        auth: true
+      },
       children: [
         {
           path: 'dashboard',
