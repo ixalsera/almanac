@@ -1,13 +1,35 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useDialog } from 'primevue/usedialog'
 import { supabase } from '@/lib/supabase/client'
 import Password from 'primevue/password'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 
+const confirmEmailDialog = defineAsyncComponent(
+  () => import('@/components/auth/ConfirmEmail.vue'),
+)
+
+const router = useRouter()
+const dialog = useDialog()
+
 const email = ref('')
 const username = ref('')
 const password = ref('')
+const passwordWeak = ref(false)
+
+const emailIsValid = computed(() => {
+  return /\S+@\S+\.\S+/.test(email.value)
+})
+
+const canSignUp = computed(() => {
+  if (email.value && username.value && password.value && emailIsValid.value) {
+    return true
+  }
+
+  return false
+})
 
 async function signUp() {
   const { data, error } = await supabase.auth.signUp({
@@ -16,28 +38,50 @@ async function signUp() {
     options: {
       data: {
         username: username.value,
-      }
+      },
     },
   })
 
-  console.log('data: ', data)
-  console.log('error: ', error)
+  if (error && error.name === 'AuthWeakPasswordError') {
+    passwordWeak.value = true
+  } else if (data.session) {
+    // We are logged in so...
+    await router.push({ name: 'dashboard' })
+  } else {
+    // If the user already exists or if a confirmation email has been sent...
+    dialog.open(confirmEmailDialog, {
+      props: {
+        style: {
+          width: '50vw',
+        },
+        breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw',
+        },
+        modal: true,
+      },
+      data: {
+        email: email.value,
+      },
+    })
+  }
 }
 </script>
 
 <template>
   <form>
     <label
-      for="email1"
+      for="email"
       class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
       >Email</label
     >
     <InputText
-      id="email1"
-      type="text"
+      id="email"
+      type="email"
       placeholder="Enter your email"
       class="w-full md:w-[30rem] mb-8"
       v-model="email"
+      :invalid="!!email && !emailIsValid"
     />
 
     <label
@@ -54,21 +98,22 @@ async function signUp() {
     />
 
     <label
-      for="password1"
+      for="password"
       class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
       >Password</label
     >
     <Password
-      id="password1"
+      id="password"
       v-model="password"
       placeholder="Pick a strong password"
       :toggleMask="true"
       class="mb-4"
       fluid
       :feedback="true"
+      :invalid="passwordWeak"
     ></Password>
 
-    <Button label="Sign Up" class="w-full" @click="signUp"></Button>
+    <Button label="Sign Up" class="w-full" @click="signUp" :disabled="!canSignUp"></Button>
   </form>
 </template>
 
