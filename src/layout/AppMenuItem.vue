@@ -91,7 +91,7 @@ function checkActiveRoute(item: MenuItem) {
       v-if="(!item.to || item.items) && item.visible !== false"
       :href="item.url"
       @click="itemClick($event, item, index)"
-      :class="item.class"
+      :class="[item.class, { 'opacity-50 hover:!bg-inherit hover:cursor-default': item.disabled }]"
       :target="item.target"
       tabindex="0"
     >

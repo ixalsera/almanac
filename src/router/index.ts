@@ -6,10 +6,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: () => import('@/views/Home.vue'),
+    },
+    {
+      path: '/',
       component: AppLayout,
       children: [
         {
-          path: '',
+          path: 'dashboard',
           name: 'dashboard',
           component: () => import('@/views/Dashboard.vue'),
         },
@@ -24,52 +29,57 @@ const router = createRouter({
             {
               path: '',
               name: 'campaignDash',
-              component: () => import('@/views/pages/campaign/CampaignDashboard.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignDashboard.vue'),
             },
             {
               path: 'events',
               name: 'campaignEvents',
-              component: () => import('@/views/pages/campaign/CampaignEvents.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignEvents.vue'),
             },
             {
               path: 'relationships',
               name: 'campaignRelationships',
-              component: () => import('@/views/pages/campaign/CampaignRelationships.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignRelationships.vue'),
             },
             {
               path: 'loot',
               name: 'campaignLoot',
-              component: () => import('@/views/pages/campaign/CampaignLoot.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignLoot.vue'),
             },
             {
               path: 'notes',
               name: 'campaignNotes',
-              component: () => import('@/views/pages/campaign/CampaignNotes.vue'),
+              component: () =>
+                import('@/views/pages/campaign/CampaignNotes.vue'),
             },
           ],
         },
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('@/views/Profile.vue')
+          component: () => import('@/views/Profile.vue'),
         },
         {
           path: 'characters',
           name: 'characters',
-          component: () => import('@/views/Characters.vue')
-        }
+          component: () => import('@/views/Characters.vue'),
+        },
       ],
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/pages/auth/Login.vue')
+      component: () => import('@/views/pages/auth/Login.vue'),
     },
     {
       path: '/logout',
       name: 'logout',
-      component: () => import('@/views/pages/auth/Login.vue')
-    }
+      component: () => import('@/views/pages/auth/Login.vue'),
+    },
   ],
 })
 

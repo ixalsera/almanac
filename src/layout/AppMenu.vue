@@ -3,6 +3,12 @@ import { ref } from 'vue'
 import AppMenuItem from './AppMenuItem.vue'
 import type { MenuItem } from 'primevue/menuitem'
 
+const userCampaigns = ref([
+  {
+    label: 'No Campaigns Found',
+    disabled: true,
+  }
+])
 const model = ref<MenuItem[]>([
   {
     label: 'Home',
@@ -21,11 +27,13 @@ const model = ref<MenuItem[]>([
   },
   {
     label: 'Campaigns',
-    items: [
-      // Dynamically populate with user's campaigns
-    ],
+    items: userCampaigns.value,
   },
 ])
+
+function loadUserCampaigns() {
+
+}
 </script>
 
 <template>
